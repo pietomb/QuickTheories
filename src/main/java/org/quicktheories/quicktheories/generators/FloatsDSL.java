@@ -136,16 +136,16 @@ public class FloatsDSL {
    *          - lower bound of domain
    * @return an IntegerDomainBuilder
    */
-  public FloatDomainBuilder from(final int startInclusive) {
+  public FloatDomainBuilder from(final float startInclusive) {
     return new FloatDomainBuilder(startInclusive);
   }
 
 
   public class FloatDomainBuilder {
 
-    private final int startInclusive;
+    private final float startInclusive;
 
-    private FloatDomainBuilder(int startInclusive) {
+    private FloatDomainBuilder(float startInclusive) {
       this.startInclusive = startInclusive;
     }
 
@@ -160,7 +160,7 @@ public class FloatsDSL {
      *          - exclusive upper bound of domain
      * @return a Source of type Integer
      */
-    public Source<Float> upTo(final int endExclusive) {
+    public Source<Float> upTo(final float endExclusive) {
       return between(startInclusive, endExclusive - 1);
     }
 
@@ -180,12 +180,12 @@ public class FloatsDSL {
    *          - inclusive upper bound of domain
    * @return a Source of type Integer
    */
-  public Source<Float> between(final int startInclusive,
-                                 final int endInclusive) {
+  public Source<Float> between(final float startInclusive,
+                                 final float endInclusive) {
     ArgumentAssertions.checkArguments(startInclusive <= endInclusive,
             "There are no Integer values to be generated between (%s) and (%s)",
             startInclusive, endInclusive);
     return Compositions.weightWithValues(
-            range(startInclusive, endInclusive, 0), (float)startInclusive, (float)endInclusive);
+            range(Math.round(startInclusive), Math.round(endInclusive), 0), startInclusive, endInclusive);
   }
 }

@@ -319,8 +319,8 @@ public class SourceDSLTest {
 
   @Test
   public void shouldGenerateFloatStartAndEndExclusive() {
-    Source<Float> testee = floats().from(-87078).upTo(8706);
-    assertThatSource(testee).generatesAllOf(-87078f, 8705f);
+    Source<Float> testee = floats().from(-87078.06f).upTo(8706.123f);
+    assertThatSource(testee).generatesAllOf(-87078.06f, 8705.123f);
     assertThatSource(testee).doesNotGenerate(-87079f, 8706f);
   }
 
