@@ -46,7 +46,7 @@ final class Floats {
     return range(startInclusive, endInclusive, 0);
   }
 
-  private static Source<Float> range(int startInclusive, int endInclusive,
+  static Source<Float> range(int startInclusive, int endInclusive,
       int target) {
     return Longs.range(startInclusive, endInclusive)
         .withShrinker(Longs.shrinkTowardsTarget(target))

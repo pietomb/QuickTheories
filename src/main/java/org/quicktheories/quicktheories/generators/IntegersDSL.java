@@ -2,7 +2,6 @@ package org.quicktheories.quicktheories.generators;
 
 import org.quicktheories.quicktheories.core.Source;
 import static org.quicktheories.quicktheories.generators.Integers.range;
-import static org.quicktheories.quicktheories.generators.Longs.range;
 
 /**
  * A Class for creating Integer Sources that will produce integers within a set

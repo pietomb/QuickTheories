@@ -318,6 +318,13 @@ public class SourceDSLTest {
   }
 
   @Test
+  public void shouldGenerateFloatStartAndEndExclusive() {
+    Source<Float> testee = floats().from(-87078).upTo(8706);
+    assertThatSource(testee).generatesAllOf(-87078f, 8705f);
+    assertThatSource(testee).doesNotGenerate(-87079f, 8706f);
+  }
+
+  @Test
   public void shouldGenerateExtremeBasicLatinCharacters() {
     Source<Character> testee = characters().basicLatinCharacters();
     assertThatSource(testee).generatesAllOf('\u0020', '\u007E');

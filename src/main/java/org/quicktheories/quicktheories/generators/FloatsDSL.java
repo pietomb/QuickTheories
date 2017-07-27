@@ -2,6 +2,8 @@ package org.quicktheories.quicktheories.generators;
 
 import org.quicktheories.quicktheories.core.Source;
 
+import static org.quicktheories.quicktheories.generators.Floats.range;
+
 /**
  * A Class for creating Float Sources that will produce floats within a set
  * interval and will shrink within this domain.
@@ -127,4 +129,63 @@ public class FloatsDSL {
         fromNegativeInfinityToPositiveInfinity(), Float.NaN);
   }
 
+  /**
+   * Constructs a IntegerDomainBuilder object with an inclusive lower bound
+   *
+   * @param startInclusive
+   *          - lower bound of domain
+   * @return an IntegerDomainBuilder
+   */
+  public FloatDomainBuilder from(final int startInclusive) {
+    return new FloatDomainBuilder(startInclusive);
+  }
+
+
+  public class FloatDomainBuilder {
+
+    private final int startInclusive;
+
+    private FloatDomainBuilder(int startInclusive) {
+      this.startInclusive = startInclusive;
+    }
+
+    /**
+     * Generates integers within the interval specified with an inclusive lower
+     * bound and exclusive upper bound.
+     *
+     * The Source is weighted so it is likely to generate the upper and lower
+     * limits of the domain one or more times.
+     *
+     * @param endExclusive
+     *          - exclusive upper bound of domain
+     * @return a Source of type Integer
+     */
+    public Source<Float> upTo(final int endExclusive) {
+      return between(startInclusive, endExclusive - 1);
+    }
+
+
+  }
+
+  /**
+   * Generates Integers within the interval specified with an inclusive lower
+   * and upper bound.
+   *
+   * The Source is weighted so it is likely to generate the upper and lower
+   * limits of the domain one or more times.
+   *
+   * @param startInclusive
+   *          - inclusive lower bound of domain
+   * @param endInclusive
+   *          - inclusive upper bound of domain
+   * @return a Source of type Integer
+   */
+  public Source<Float> between(final int startInclusive,
+                                 final int endInclusive) {
+    ArgumentAssertions.checkArguments(startInclusive <= endInclusive,
+            "There are no Integer values to be generated between (%s) and (%s)",
+            startInclusive, endInclusive);
+    return Compositions.weightWithValues(
+            range(startInclusive, endInclusive, 0), (float)startInclusive, (float)endInclusive);
+  }
 }
